@@ -1,4 +1,4 @@
-# That's the test exercise to be able to get an invite to job interview. Just a simple TODO LIST.
+# That's the test exercise to be able to get an invite to job interview. Just a kanban.
 
 ## Project setup
 ```
