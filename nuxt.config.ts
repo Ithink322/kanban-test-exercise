@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@pinia/nuxt"],
+  plugins: ["~/plugins/pinia.js"],
   app: {
     head: {
       title: "Kanban by vitaliy",

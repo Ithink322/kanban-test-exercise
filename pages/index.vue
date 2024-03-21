@@ -14,6 +14,7 @@
           :onHoldtasks="onHoldtasks"
         ></UIOnHoldTasksList>
         <textarea
+          v-model="onHoldtext"
           placeholder="Введите заголовок для этой карточки"
           class="container__section-add-task-textarea container__section-add-on-hold-task-textarea"
           rows="6"
@@ -49,6 +50,7 @@
           :inProgressTasks="inProgressTasks"
         ></UIInProgressTasksList>
         <textarea
+          v-model="inProgresstext"
           placeholder="Введите заголовок для этой карточки"
           class="container__section-add-in-progress-task-textarea container__section-add-task-textarea"
           rows="6"
@@ -84,6 +86,7 @@
           :needsReviewTasks="needsReviewTasks"
         ></UINeedsReviewTasksList>
         <textarea
+          v-model="needsReviewtext"
           placeholder="Введите заголовок для этой карточки"
           class="container__section-add-needs-review-task-textarea container__section-add-task-textarea"
           rows="6"
@@ -119,6 +122,7 @@
           :approvedTasks="approvedTasks"
         ></UIApprovedTasksList>
         <textarea
+          v-model="approvedtext"
           placeholder="Введите заголовок для этой карточки"
           class="container__section-add-approved-task-textarea container__section-add-task-textarea"
           rows="6"
@@ -146,10 +150,31 @@
 </template>
 
 <script setup>
-const onHoldtasks = ref([{}]);
-const inProgressTasks = ref([{}]);
-const needsReviewTasks = ref([{}]);
-const approvedTasks = ref([{}]);
+import { useOnHoldTasksStore } from "~/store/onHoldTasks";
+import { useInProgressTasksStore } from "~/store/inProgressTasks";
+import { useNeedsReviewTasksStore } from "~/store/needsReviewTasks";
+import { useApprovedTasksStore } from "~/store/approvedTasks";
+const onHoldStore = useOnHoldTasksStore(),
+  inProgressStore = useInProgressTasksStore(),
+  needsReviewStore = useNeedsReviewTasksStore(),
+  approvedStore = useApprovedTasksStore();
+
+const onHoldtasks = ref([]),
+  inProgressTasks = ref([]),
+  needsReviewTasks = ref([]),
+  approvedTasks = ref([]),
+  onHoldtext = ref(""),
+  inProgresstext = ref(""),
+  needsReviewtext = ref(""),
+  approvedtext = ref("");
+
+onMounted(() => {
+  onHoldtasks.value = onHoldStore.onHoldTasks;
+  inProgressTasks.value = inProgressStore.inProgressTasks;
+  needsReviewTasks.value = needsReviewStore.needsReviewTasks;
+  approvedTasks.value = approvedStore.approvedTasks;
+});
+
 const showAddOnHoldTasksForm = (e) => {
   if (!e.target.classList.contains("container__section-add-task-close-icon")) {
     document.querySelector(
@@ -164,6 +189,24 @@ const showAddOnHoldTasksForm = (e) => {
     document
       .querySelector(".container__section-add-on-hold-task-close-icon")
       .classList.add("container__section-add-task-close-icon-active");
+    if (e.target.classList.contains("container__section-add-task-btn-active")) {
+      if (onHoldtext.value.trim() !== "") {
+        onHoldStore.addHoldOnTask(onHoldtext.value);
+        onHoldtext.value = "";
+        document.querySelector(
+          ".container__section-add-on-hold-task-textarea"
+        ).style.display = "none";
+        document
+          .querySelector(".container__section-add-on-hold-task-btn")
+          .classList.remove("container__section-add-task-btn-active");
+        document
+          .querySelector(".container__section-add-on-hold-task-close-icon")
+          .classList.remove("container__section-add-task-close-icon-active");
+        document.querySelector(
+          ".container__section-add-on-hold-task-plus-icon"
+        ).style.display = "block";
+      }
+    }
   }
 };
 const showAddInProgressTasksForm = (e) => {
@@ -180,6 +223,24 @@ const showAddInProgressTasksForm = (e) => {
     document
       .querySelector(".container__section-add-in-progress-task-close-icon")
       .classList.add("container__section-add-task-close-icon-active");
+    if (e.target.classList.contains("container__section-add-task-btn-active")) {
+      if (inProgresstext.value.trim() !== "") {
+        inProgressStore.addInProgressTask(inProgresstext.value);
+        inProgresstext.value = "";
+        document.querySelector(
+          ".container__section-add-in-progress-task-textarea"
+        ).style.display = "none";
+        document
+          .querySelector(".container__section-add-in-progress-task-btn")
+          .classList.remove("container__section-add-task-btn-active");
+        document
+          .querySelector(".container__section-add-in-progress-task-close-icon")
+          .classList.remove("container__section-add-task-close-icon-active");
+        document.querySelector(
+          ".container__section-add-in-progress-task-plus-icon"
+        ).style.display = "block";
+      }
+    }
   }
 };
 const showAddNeedsReviewTasksForm = (e) => {
@@ -196,6 +257,24 @@ const showAddNeedsReviewTasksForm = (e) => {
     document
       .querySelector(".container__section-add-needs-review-task-close-icon")
       .classList.add("container__section-add-task-close-icon-active");
+    if (e.target.classList.contains("container__section-add-task-btn-active")) {
+      if (needsReviewtext.value.trim() !== "") {
+        needsReviewStore.addNeedsReviewTask(needsReviewtext.value);
+        needsReviewtext.value = "";
+        document.querySelector(
+          ".container__section-add-needs-review-task-textarea"
+        ).style.display = "none";
+        document
+          .querySelector(".container__section-add-needs-review-task-btn")
+          .classList.remove("container__section-add-task-btn-active");
+        document
+          .querySelector(".container__section-add-needs-review-task-close-icon")
+          .classList.remove("container__section-add-task-close-icon-active");
+        document.querySelector(
+          ".container__section-add-needs-review-task-plus-icon"
+        ).style.display = "block";
+      }
+    }
   }
 };
 const showAddApprovedTasksForm = (e) => {
@@ -212,6 +291,24 @@ const showAddApprovedTasksForm = (e) => {
     document
       .querySelector(".container__section-add-approved-task-close-icon")
       .classList.add("container__section-add-task-close-icon-active");
+    if (e.target.classList.contains("container__section-add-task-btn-active")) {
+      if (approvedtext.value.trim() !== "") {
+        approvedStore.addApprovedTask(approvedtext.value);
+        approvedtext.value = "";
+        document.querySelector(
+          ".container__section-add-approved-task-textarea"
+        ).style.display = "none";
+        document
+          .querySelector(".container__section-add-approved-task-btn")
+          .classList.remove("container__section-add-task-btn-active");
+        document
+          .querySelector(".container__section-add-approved-task-close-icon")
+          .classList.remove("container__section-add-task-close-icon-active");
+        document.querySelector(
+          ".container__section-add-approved-task-plus-icon"
+        ).style.display = "block";
+      }
+    }
   }
 };
 const closeAddOnHoldTasksForm = () => {
@@ -224,6 +321,9 @@ const closeAddOnHoldTasksForm = () => {
   document
     .querySelector(".container__section-add-on-hold-task-close-icon")
     .classList.remove("container__section-add-task-close-icon-active");
+  document.querySelector(
+    ".container__section-add-on-hold-task-plus-icon"
+  ).style.display = "block";
 };
 const closeAddInProgressTasksForm = () => {
   document.querySelector(
@@ -235,6 +335,9 @@ const closeAddInProgressTasksForm = () => {
   document
     .querySelector(".container__section-add-in-progress-task-close-icon")
     .classList.remove("container__section-add-task-close-icon-active");
+  document.querySelector(
+    ".container__section-add-in-progress-task-plus-icon"
+  ).style.display = "block";
 };
 const closeAddNeedsReviewTasksForm = () => {
   document.querySelector(
@@ -246,6 +349,9 @@ const closeAddNeedsReviewTasksForm = () => {
   document
     .querySelector(".container__section-add-needs-review-task-close-icon")
     .classList.remove("container__section-add-task-close-icon-active");
+  document.querySelector(
+    ".container__section-add-needs-review-task-plus-icon"
+  ).style.display = "block";
 };
 const closeAddApprovedTasksForm = () => {
   document.querySelector(
@@ -257,6 +363,9 @@ const closeAddApprovedTasksForm = () => {
   document
     .querySelector(".container__section-add-approved-task-close-icon")
     .classList.remove("container__section-add-task-close-icon-active");
+  document.querySelector(
+    ".container__section-add-approved-task-plus-icon"
+  ).style.display = "block";
 };
 </script>
 
@@ -271,6 +380,7 @@ const closeAddApprovedTasksForm = () => {
   display: grid;
   grid-template-columns: repeat(1, 100%);
   row-gap: 2rem;
+  align-items: start;
 }
 .container__section {
   position: relative;
@@ -350,7 +460,7 @@ const closeAddApprovedTasksForm = () => {
 }
 .container__section-add-task-close-icon {
   display: none;
-  margin-left: 9.8rem;
+  margin-left: 9rem;
 }
 .container__section-add-task-close-icon-active {
   position: absolute;
@@ -364,7 +474,6 @@ const closeAddApprovedTasksForm = () => {
     padding: 2.5rem 2.5rem;
   }
   .container__sections-grid {
-    display: grid;
     grid-template-columns: repeat(2, 48.65%);
     row-gap: 2rem;
     column-gap: 1.15rem;
