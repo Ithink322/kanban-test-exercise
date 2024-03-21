@@ -11,5 +11,10 @@ export const useApprovedTasksStore = defineStore({
       };
       this.approvedTasks.push(newTask);
     },
+    deleteApprovedTask(taskId) {
+      this.approvedtasks = this.approvedtasks.filter(
+        (task) => task.id !== taskId
+      );
+    },
   },
 });

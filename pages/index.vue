@@ -30,7 +30,7 @@
           />
           Добавить карточку
           <img
-            @click="closeAddOnHoldTasksForm"
+            @click="closeOnHoldTasksForm"
             class="container__section-add-task-close-icon container__section-add-on-hold-task-close-icon"
             src="@/public/imgs/cross.svg"
             alt=""
@@ -66,7 +66,7 @@
           />
           Добавить карточку
           <img
-            @click="closeAddInProgressTasksForm"
+            @click="closeInProgressTasksForm"
             class="container__section-add-task-close-icon container__section-add-in-progress-task-close-icon"
             src="@/public/imgs/cross.svg"
             alt=""
@@ -102,7 +102,7 @@
           />
           Добавить карточку
           <img
-            @click="closeAddNeedsReviewTasksForm"
+            @click="closeNeedsReviewTasksForm"
             class="container__section-add-task-close-icon container__section-add-needs-review-task-close-icon"
             src="@/public/imgs/cross.svg"
             alt=""
@@ -138,7 +138,7 @@
           />
           Добавить карточку
           <img
-            @click="closeAddApprovedTasksForm"
+            @click="closeApprovedTasksForm"
             class="container__section-add-task-close-icon container__section-add-approved-task-close-icon"
             src="@/public/imgs/cross.svg"
             alt=""
@@ -311,7 +311,7 @@ const showAddApprovedTasksForm = (e) => {
     }
   }
 };
-const closeAddOnHoldTasksForm = () => {
+const closeOnHoldTasksForm = () => {
   document.querySelector(
     ".container__section-add-on-hold-task-textarea"
   ).style.display = "none";
@@ -325,7 +325,7 @@ const closeAddOnHoldTasksForm = () => {
     ".container__section-add-on-hold-task-plus-icon"
   ).style.display = "block";
 };
-const closeAddInProgressTasksForm = () => {
+const closeInProgressTasksForm = () => {
   document.querySelector(
     ".container__section-add-in-progress-task-textarea"
   ).style.display = "none";
@@ -339,7 +339,7 @@ const closeAddInProgressTasksForm = () => {
     ".container__section-add-in-progress-task-plus-icon"
   ).style.display = "block";
 };
-const closeAddNeedsReviewTasksForm = () => {
+const closeNeedsReviewTasksForm = () => {
   document.querySelector(
     ".container__section-add-needs-review-task-textarea"
   ).style.display = "none";
@@ -353,7 +353,7 @@ const closeAddNeedsReviewTasksForm = () => {
     ".container__section-add-needs-review-task-plus-icon"
   ).style.display = "block";
 };
-const closeAddApprovedTasksForm = () => {
+const closeApprovedTasksForm = () => {
   document.querySelector(
     ".container__section-add-approved-task-textarea"
   ).style.display = "none";

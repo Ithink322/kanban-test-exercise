@@ -11,5 +11,8 @@ export const useOnHoldTasksStore = defineStore({
       };
       this.onHoldTasks.push(newTask);
     },
+    deleteHoldOnTask(taskId) {
+      this.onHoldTasks = this.onHoldTasks.filter((task) => task.id !== taskId);
+    },
   },
 });

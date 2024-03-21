@@ -11,5 +11,10 @@ export const useNeedsReviewTasksStore = defineStore({
       };
       this.needsReviewTasks.push(newTask);
     },
+    deleteNeedsReviewTask(taskId) {
+      this.needsReviewTasks = this.needsReviewTasks.filter(
+        (task) => task.id !== taskId
+      );
+    },
   },
 });

@@ -3,6 +3,7 @@
     <UITaskItem
       v-for="task in approvedTasks"
       :task="task"
+      :tasksArray="approvedTasks"
       :key="task.id"
     ></UITaskItem>
   </div>

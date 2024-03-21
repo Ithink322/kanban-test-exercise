@@ -3,6 +3,7 @@
     <UITaskItem
       v-for="task in onHoldtasks"
       :task="task"
+      :tasksArray="onHoldtasks"
       :key="task.id"
     ></UITaskItem>
   </div>

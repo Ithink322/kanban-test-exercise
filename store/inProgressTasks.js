@@ -11,5 +11,10 @@ export const useInProgressTasksStore = defineStore({
       };
       this.inProgressTasks.push(newTask);
     },
+    deleteInProgressTask(taskId) {
+      this.inProgressTasks = this.inProgressTasks.filter(
+        (task) => task.id !== taskId
+      );
+    },
   },
 });

@@ -9,14 +9,27 @@
       >
       <span class="container__on-hold-task-item-text">{{ task.text }}</span>
     </div>
-    <button class="container__on-hold-task-item-delete-btn">
+    <button
+      @click="deleteTask(task.id)"
+      class="container__on-hold-task-item-delete-btn"
+    >
       <img src="@/public/imgs/cross.svg" alt="" />
     </button>
   </div>
 </template>
 
 <script setup>
-const props = defineProps(["task"]);
+const props = defineProps({
+  task: Object,
+  tasksArray: Array,
+});
+
+const deleteTask = (taskId) => {
+  const taskIndex = props.tasksArray.findIndex((task) => task.id === taskId);
+  if (taskIndex !== -1) {
+    props.tasksArray.splice(taskIndex, 1);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
