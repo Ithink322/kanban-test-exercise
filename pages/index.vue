@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="container__sections-flex">
+    <div class="container__sections-grid">
       <section class="container__section">
         <div
           class="container__section-header container__section-header-HOLD-ON"
@@ -214,6 +214,50 @@ const showAddApprovedTasksForm = (e) => {
       .classList.add("container__section-add-task-close-icon-active");
   }
 };
+const closeAddOnHoldTasksForm = () => {
+  document.querySelector(
+    ".container__section-add-on-hold-task-textarea"
+  ).style.display = "none";
+  document
+    .querySelector(".container__section-add-on-hold-task-btn")
+    .classList.remove("container__section-add-task-btn-active");
+  document
+    .querySelector(".container__section-add-on-hold-task-close-icon")
+    .classList.remove("container__section-add-task-close-icon-active");
+};
+const closeAddInProgressTasksForm = () => {
+  document.querySelector(
+    ".container__section-add-in-progress-task-textarea"
+  ).style.display = "none";
+  document
+    .querySelector(".container__section-add-in-progress-task-btn")
+    .classList.remove("container__section-add-task-btn-active");
+  document
+    .querySelector(".container__section-add-in-progress-task-close-icon")
+    .classList.remove("container__section-add-task-close-icon-active");
+};
+const closeAddNeedsReviewTasksForm = () => {
+  document.querySelector(
+    ".container__section-add-needs-review-task-textarea"
+  ).style.display = "none";
+  document
+    .querySelector(".container__section-add-needs-review-task-btn")
+    .classList.remove("container__section-add-task-btn-active");
+  document
+    .querySelector(".container__section-add-needs-review-task-close-icon")
+    .classList.remove("container__section-add-task-close-icon-active");
+};
+const closeAddApprovedTasksForm = () => {
+  document.querySelector(
+    ".container__section-add-approved-task-textarea"
+  ).style.display = "none";
+  document
+    .querySelector(".container__section-add-approved-task-btn")
+    .classList.remove("container__section-add-task-btn-active");
+  document
+    .querySelector(".container__section-add-approved-task-close-icon")
+    .classList.remove("container__section-add-task-close-icon-active");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -223,10 +267,10 @@ const showAddApprovedTasksForm = (e) => {
   background: rgb(54, 64, 68);
   min-height: 100vh;
 }
-.container__sections-flex {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.container__sections-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 100%);
+  row-gap: 2rem;
 }
 .container__section {
   position: relative;
@@ -313,5 +357,37 @@ const showAddApprovedTasksForm = (e) => {
   display: block;
   width: 14px;
   height: 14px;
+}
+/* 768px = 48em */
+@media (min-width: 48em) {
+  .container {
+    padding: 2.5rem 2.5rem;
+  }
+  .container__sections-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 48.65%);
+    row-gap: 2rem;
+    column-gap: 1.15rem;
+  }
+}
+/* 1440px = 90em */
+@media (min-width: 90em) {
+  .container {
+    padding: 2.5rem 10rem;
+  }
+  .container__sections-grid {
+    grid-template-columns: repeat(4, 22.83%);
+    column-gap: 2rem;
+  }
+}
+/* 1920px = 120em */
+@media (min-width: 120em) {
+  .container {
+    padding: 2.5rem 15.938rem;
+  }
+  .container__sections-grid {
+    grid-template-columns: repeat(4, 23.3%);
+    column-gap: 2rem;
+  }
 }
 </style>
