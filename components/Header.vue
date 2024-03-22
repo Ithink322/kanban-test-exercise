@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <header v-if="showHeader" class="header">
     <UIBurgerBtn @click="showBurgerMenu"></UIBurgerBtn>
     <UIBurgerMenu></UIBurgerMenu>
     <UISignInOrSingUpBtn
@@ -12,12 +12,29 @@
 const showBurgerMenu = () => {
   document.querySelector(".header__burger-menu-shadow").style.display = "block";
 };
+const route = useRouter();
+const showHeader = ref(true);
+
+onMounted(() => {
+  updateHeaderState();
+});
+watch(
+  computed(() => route.currentRoute.value.name),
+  () => {
+    updateHeaderState();
+  }
+);
+const updateHeaderState = () => {
+  showHeader.value =
+    route.currentRoute.value.name !== "LoginOrRegistrationPage";
+};
 </script>
 
 <style lang="scss" scoped>
 .header {
   display: flex;
   justify-content: right;
+  align-items: center;
   background: rgb(107, 189, 91);
   height: 40px;
   padding: 0.2rem 1rem;
