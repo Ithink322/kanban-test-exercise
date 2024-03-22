@@ -1,15 +1,23 @@
 <template>
-  <div class="container__needs-review-tasks-list">
-    <UITaskItem
-      v-for="task in needsReviewTasks"
-      :task="task"
-      :tasksArray="needsReviewTasks"
-      :key="task.id"
-    ></UITaskItem>
-  </div>
+  <draggable
+    :list="needsReviewTasks"
+    :animation="200"
+    ghost-class="ghost-card"
+    group="tasks"
+    class="container__needs-review-tasks-list"
+  >
+    <template #item="{ element }">
+      <UITaskItem
+        :task="element"
+        :tasksArray="needsReviewTasks"
+        :key="element.id"
+      ></UITaskItem>
+    </template>
+  </draggable>
 </template>
 
 <script setup>
+import draggable from "vuedraggable";
 const props = defineProps(["needsReviewTasks"]);
 </script>
 

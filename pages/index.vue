@@ -6,13 +6,10 @@
           class="container__section-header container__section-header-HOLD-ON"
         >
           <span class="container__section-header-title"
-            >ON HOLD ({{ onHoldtasks.length }})</span
+            >ON HOLD ({{ onHoldTasks.length }})</span
           >
         </div>
-        <UIOnHoldTasksList
-          v-if="onHoldtasks.length > 0"
-          :onHoldtasks="onHoldtasks"
-        ></UIOnHoldTasksList>
+        <UIOnHoldTasksList :onHoldTasks="onHoldTasks"></UIOnHoldTasksList>
         <textarea
           v-model="onHoldtext"
           placeholder="Введите заголовок для этой карточки"
@@ -46,7 +43,6 @@
           >
         </div>
         <UIInProgressTasksList
-          v-if="inProgressTasks.length > 0"
           :inProgressTasks="inProgressTasks"
         ></UIInProgressTasksList>
         <textarea
@@ -82,7 +78,6 @@
           >
         </div>
         <UINeedsReviewTasksList
-          v-if="needsReviewTasks.length > 0"
           :needsReviewTasks="needsReviewTasks"
         ></UINeedsReviewTasksList>
         <textarea
@@ -118,7 +113,6 @@
           >
         </div>
         <UIApprovedTasksList
-          v-if="approvedTasks.length > 0"
           :approvedTasks="approvedTasks"
         ></UIApprovedTasksList>
         <textarea
@@ -159,7 +153,7 @@ const onHoldStore = useOnHoldTasksStore(),
   needsReviewStore = useNeedsReviewTasksStore(),
   approvedStore = useApprovedTasksStore();
 
-const onHoldtasks = ref([]),
+const onHoldTasks = ref([]),
   inProgressTasks = ref([]),
   needsReviewTasks = ref([]),
   approvedTasks = ref([]),
@@ -169,10 +163,19 @@ const onHoldtasks = ref([]),
   approvedtext = ref("");
 
 onMounted(() => {
-  onHoldtasks.value = onHoldStore.onHoldTasks;
+  onHoldTasks.value = onHoldStore.onHoldTasks;
   inProgressTasks.value = inProgressStore.inProgressTasks;
   needsReviewTasks.value = needsReviewStore.needsReviewTasks;
   approvedTasks.value = approvedStore.approvedTasks;
+
+  if (approvedTasks.length === 0) {
+    console.log(document.querySelector(".container__approved-tasks-list"));
+    document.querySelector(".container__approved-tasks-list").style.padding =
+      "0rem";
+  } else {
+    document.querySelector(".container__approved-tasks-list").style.padding =
+      "0.6rem 0rem";
+  }
 });
 
 const showAddOnHoldTasksForm = (e) => {

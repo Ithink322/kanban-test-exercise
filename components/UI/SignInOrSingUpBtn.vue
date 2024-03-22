@@ -1,5 +1,7 @@
 <template>
-  <button class="sign-in-or-sign-up-btn">Войти / Выйти</button>
+  <NuxtLink to="/LoginOrRegistrationPage">
+    <button class="sign-in-or-sign-up-btn">Войти / Зарегистрироваться</button>
+  </NuxtLink>
 </template>
 
 <style lang="scss" scoped>

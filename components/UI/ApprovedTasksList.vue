@@ -1,15 +1,23 @@
 <template>
-  <div class="container__approved-tasks-list">
-    <UITaskItem
-      v-for="task in approvedTasks"
-      :task="task"
-      :tasksArray="approvedTasks"
-      :key="task.id"
-    ></UITaskItem>
-  </div>
+  <draggable
+    :list="approvedTasks"
+    :animation="200"
+    ghost-class="ghost-card"
+    group="tasks"
+    class="container__approved-tasks-list"
+  >
+    <template #item="{ element }">
+      <UITaskItem
+        :task="element"
+        :tasksArray="approvedTasks"
+        :key="element.id"
+      ></UITaskItem>
+    </template>
+  </draggable>
 </template>
 
 <script setup>
+import draggable from "vuedraggable";
 const props = defineProps(["approvedTasks"]);
 </script>
 

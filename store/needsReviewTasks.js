@@ -17,4 +17,5 @@ export const useNeedsReviewTasksStore = defineStore({
       );
     },
   },
+  persist: true,
 });

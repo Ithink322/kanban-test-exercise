@@ -17,4 +17,5 @@ export const useInProgressTasksStore = defineStore({
       );
     },
   },
+  persist: true,
 });

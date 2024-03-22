@@ -17,4 +17,5 @@ export const useApprovedTasksStore = defineStore({
       );
     },
   },
+  persist: true,
 });
