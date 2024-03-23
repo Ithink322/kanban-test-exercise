@@ -2,6 +2,16 @@
   <div id="app">
     <Header></Header>
     <NuxtPage></NuxtPage>
+    <NuxtNotifications
+      style="
+        bottom: 2rem;
+        width: 100%;
+        padding: 2rem;
+        font-family: Montserrat, sans-serif;
+      "
+      position="bottom right"
+      :speed="500"
+    />
   </div>
 </template>
 

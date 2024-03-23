@@ -36,7 +36,7 @@ const updateHeaderState = () => {
   justify-content: right;
   align-items: center;
   background: rgb(107, 189, 91);
-  height: 40px;
+  height: 50px;
   padding: 0.2rem 1rem;
 }
 .header__sign-in-or-sign-up-btn-hide-show {

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="container__sections-grid">
+    <div v-if="username" class="container__sections-grid">
       <section class="container__section">
         <div
           class="container__section-header container__section-header-HOLD-ON"
@@ -17,7 +17,7 @@
           rows="6"
         ></textarea>
         <button
-          @click="showAddOnHoldTasksForm"
+          @click="showOnHoldTasksForm"
           class="container__section-add-task-btn container__section-add-on-hold-task-btn"
         >
           <img
@@ -52,7 +52,7 @@
           rows="6"
         ></textarea>
         <button
-          @click="showAddInProgressTasksForm"
+          @click="showInProgressTasksForm"
           class="container__section-add-task-btn container__section-add-in-progress-task-btn"
         >
           <img
@@ -87,7 +87,7 @@
           rows="6"
         ></textarea>
         <button
-          @click="showAddNeedsReviewTasksForm"
+          @click="showNeedsReviewTasksForm"
           class="container__section-add-task-btn container__section-add-needs-review-task-btn"
         >
           <img
@@ -122,7 +122,7 @@
           rows="6"
         ></textarea>
         <button
-          @click="showAddApprovedTasksForm"
+          @click="showApprovedTasksForm"
           class="container__section-add-task-btn container__section-add-approved-task-btn"
         >
           <img
@@ -140,6 +140,9 @@
         </button>
       </section>
     </div>
+    <span v-else class="container__warning-text"
+      >Вы должны быть авторизованными, чтобы работать с задачами.</span
+    >
   </div>
 </template>
 
@@ -162,23 +165,18 @@ const onHoldTasks = ref([]),
   needsReviewtext = ref(""),
   approvedtext = ref("");
 
+let username = ref("");
 onMounted(() => {
+  if (localStorage.getItem("username")) {
+    username.value = localStorage.getItem("username");
+  }
   onHoldTasks.value = onHoldStore.onHoldTasks;
   inProgressTasks.value = inProgressStore.inProgressTasks;
   needsReviewTasks.value = needsReviewStore.needsReviewTasks;
   approvedTasks.value = approvedStore.approvedTasks;
-
-  if (approvedTasks.length === 0) {
-    console.log(document.querySelector(".container__approved-tasks-list"));
-    document.querySelector(".container__approved-tasks-list").style.padding =
-      "0rem";
-  } else {
-    document.querySelector(".container__approved-tasks-list").style.padding =
-      "0.6rem 0rem";
-  }
 });
 
-const showAddOnHoldTasksForm = (e) => {
+const showOnHoldTasksForm = (e) => {
   if (!e.target.classList.contains("container__section-add-task-close-icon")) {
     document.querySelector(
       ".container__section-add-on-hold-task-textarea"
@@ -212,7 +210,7 @@ const showAddOnHoldTasksForm = (e) => {
     }
   }
 };
-const showAddInProgressTasksForm = (e) => {
+const showInProgressTasksForm = (e) => {
   if (!e.target.classList.contains("container__section-add-task-close-icon")) {
     document.querySelector(
       ".container__section-add-in-progress-task-textarea"
@@ -246,7 +244,7 @@ const showAddInProgressTasksForm = (e) => {
     }
   }
 };
-const showAddNeedsReviewTasksForm = (e) => {
+const showNeedsReviewTasksForm = (e) => {
   if (!e.target.classList.contains("container__section-add-task-close-icon")) {
     document.querySelector(
       ".container__section-add-needs-review-task-textarea"
@@ -280,7 +278,7 @@ const showAddNeedsReviewTasksForm = (e) => {
     }
   }
 };
-const showAddApprovedTasksForm = (e) => {
+const showApprovedTasksForm = (e) => {
   if (!e.target.classList.contains("container__section-add-task-close-icon")) {
     document.querySelector(
       ".container__section-add-approved-task-textarea"
@@ -470,6 +468,14 @@ const closeApprovedTasksForm = () => {
   display: block;
   width: 14px;
   height: 14px;
+}
+.container__warning-text {
+  display: block;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.125rem;
+  color: #fff;
+  margin-top: 5rem;
 }
 /* 768px = 48em */
 @media (min-width: 48em) {
