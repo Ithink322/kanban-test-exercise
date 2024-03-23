@@ -109,6 +109,7 @@ const signIn = () => {
         });
         localStorage.setItem("username", username.value);
         token = response.data;
+        localStorage.setItem("token", token.access);
         router.push("/");
       })
       .catch((error) => {
@@ -154,7 +155,6 @@ const signUp = async () => {
         },
         {
           headers: {
-            Authorization: "Bearer",
             "Content-Type": "application/json",
           },
         }

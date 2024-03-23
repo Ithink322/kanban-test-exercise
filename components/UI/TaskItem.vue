@@ -1,9 +1,5 @@
 <template>
-  <div
-    draggable="true"
-    @click.stop="emitOpenDetails"
-    class="container__on-hold-task-item"
-  >
+  <div draggable="true" class="container__on-hold-task-item">
     <div class="container__on-hold-task-item-id-and-id-text">
       <span class="container__on-hold-task-item-id"
         >id:
@@ -27,11 +23,6 @@ const props = defineProps({
   task: Object,
   tasksArray: Array,
 });
-
-const emit = defineEmits(["open-details"]);
-const emitOpenDetails = () => {
-  emit("open-details", props.task);
-};
 
 const deleteTask = (taskId) => {
   const taskIndex = props.tasksArray.findIndex((task) => task.id === taskId);
